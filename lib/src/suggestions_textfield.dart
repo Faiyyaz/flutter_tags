@@ -137,10 +137,13 @@ class _SuggestionsTextFieldState extends State<SuggestionsTextField> {
             ));
 
     return input.copyWith(
-        helperText: _helperCheck || _suggestions == null ? null : _helperText,
-        helperStyle: widget.tagsTextField.helperTextStyle,
-        hintText: widget.tagsTextField.hintText ?? 'Add a tag',
-        hintStyle: TextStyle(color: widget.tagsTextField.hintTextColor));
+      helperText: _helperCheck || _suggestions == null ? null : _helperText,
+      helperStyle: widget.tagsTextField.helperTextStyle,
+      hintText: widget.tagsTextField.hintText ?? 'Add a tag',
+      hintStyle: widget.tagsTextField.hintStyle == null
+          ? TextStyle(color: widget.tagsTextField.hintTextColor)
+          : widget.tagsTextField.hintStyle,
+    );
   }
 
   ///OnSubmitted
@@ -208,6 +211,7 @@ class TagsTextField {
       this.autofocus,
       this.hintText,
       this.hintTextColor,
+      this.hintStyle,
       this.suggestionTextColor,
       this.helperText,
       this.helperTextStyle,
@@ -235,6 +239,7 @@ class TagsTextField {
   final Color suggestionTextColor;
   final String helperText;
   final TextStyle helperTextStyle;
+  final TextStyle hintStyle;
   final TextInputType keyboardType;
   final TextCapitalization textCapitalization;
   final int maxLength;
