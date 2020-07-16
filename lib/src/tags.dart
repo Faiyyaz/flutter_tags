@@ -24,6 +24,7 @@ class Tags extends StatefulWidget {
       this.itemBuilder,
       this.textField,
       this.shouldNotLoseFocus = false,
+      this.maxAllowedCount,
       Key key})
       : assert(itemCount >= 0),
         assert(alignment != null),
@@ -81,6 +82,9 @@ class Tags extends StatefulWidget {
 
   /// should not lose Focus on done
   final bool shouldNotLoseFocus;
+
+  /// Max limit for tags
+  final int maxAllowedCount;
 
   @override
   TagsState createState() => TagsState();
@@ -164,6 +168,9 @@ class TagsState extends State<Tags> {
             alignment: Alignment.center,
             width: widget.symmetry ? _widthCalc() : widget.textField.width,
             child: SuggestionsTextField(
+              isMaxLimitReached: widget.maxAllowedCount == null
+                  ? false
+                  : widget.itemCount >= widget.maxAllowedCount,
               shouldNotLoseFocus: widget.shouldNotLoseFocus,
               tagsTextField: widget.textField,
               onSubmitted: (String str) {

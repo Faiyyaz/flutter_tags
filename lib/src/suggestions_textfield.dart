@@ -16,12 +16,14 @@ class SuggestionsTextField extends StatefulWidget {
       {@required this.tagsTextField,
       this.onSubmitted,
       this.shouldNotLoseFocus,
+      this.isMaxLimitReached,
       Key key})
       : assert(tagsTextField != null),
         super(key: key);
 
   final TagsTextField tagsTextField;
   final bool shouldNotLoseFocus;
+  final bool isMaxLimitReached;
   final OnSubmittedCallback onSubmitted;
 
   @override
@@ -41,6 +43,7 @@ class _SuggestionsTextFieldState extends State<SuggestionsTextField> {
   InputDecoration _inputDecoration;
   FocusNode _focusNode = FocusNode();
   bool _shouldNotLoseFocus;
+  bool _isMaxLimitReached;
 
   @override
   void initState() {
@@ -61,6 +64,7 @@ class _SuggestionsTextFieldState extends State<SuggestionsTextField> {
     _inputDecoration = widget.tagsTextField.inputDecoration;
     _fontSize = widget.tagsTextField.textStyle.fontSize;
     _shouldNotLoseFocus = widget.shouldNotLoseFocus;
+    _isMaxLimitReached = widget.isMaxLimitReached;
 
     return Stack(
       alignment: Alignment.centerLeft,
@@ -89,6 +93,7 @@ class _SuggestionsTextFieldState extends State<SuggestionsTextField> {
           ),
         ),
         TextField(
+          readOnly: _isMaxLimitReached,
           focusNode: _focusNode,
           controller: _controller,
           enabled: widget.tagsTextField.enabled,
